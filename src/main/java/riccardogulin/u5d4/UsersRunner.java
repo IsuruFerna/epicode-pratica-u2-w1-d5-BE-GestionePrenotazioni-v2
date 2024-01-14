@@ -31,18 +31,68 @@ public class UsersRunner implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		// AnnotationConfigApplicationContext ctx = new
-		// AnnotationConfigApplicationContext(U5d4Application.class);ù
-		// officeService.save(ctx.getBean("of1", Office.class));
-		// System.out.println(ctx.getBean("of1", Office.class));
+//		 AnnotationConfigApplicationContext ctx = new
+//		 AnnotationConfigApplicationContext(U5d4Application.class);
+//		 officeService.save(ctx.getBean("of1", Office.class));
+//		 System.out.println(ctx.getBean("of1", Office.class));
 
 		Faker faker = new Faker();
-		Office of1 = new Office(faker.company().name(), faker.address().fullAddress(), faker.address().city());
+		Random rndm = new Random();
+
+/*		Office of1 = new Office(faker.company().name(), faker.address().fullAddress(), faker.address().city());
 		Office of2 = new Office(faker.company().name(), faker.address().fullAddress(), faker.address().city());
 		Office of3 = new Office(faker.company().name(), faker.address().fullAddress(), faker.address().city());
+
 		officeService.save(of1);
 		officeService.save(of2);
-		officeService.save(of3);
+		officeService.save(of3);*/
+
+	/*	WorkStation ws1 = new WorkStation().builder()
+				.description("WS1")
+				.maxOccupation(rndm.nextInt(5, 30))
+				.office(officeService.findById(rndm.nextLong(16, 24)))
+				.workStationType(WorkStationType.PRIVATE).build();
+
+		WorkStation ws2 = new WorkStation().builder()
+				.description("WS1")
+				.maxOccupation(rndm.nextInt(5, 30))
+				.office(officeService.findById(rndm.nextLong(16, 24)))
+				.workStationType(WorkStationType.OPEN_SPACE).build();
+
+		WorkStation ws3 = new WorkStation().builder()
+				.description("WS1")
+				.maxOccupation(rndm.nextInt(5, 30))
+				.office(officeService.findById(rndm.nextLong(16, 24)))
+				.workStationType(WorkStationType.MEETING_ROOM).build();
+
+		WorkStation ws4 = new WorkStation().builder()
+				.description("WS1")
+				.maxOccupation(rndm.nextInt(5, 30))
+				.office(officeService.findById(rndm.nextLong(16, 24)))
+				.workStationType(WorkStationType.OPEN_SPACE).build();
+
+		WorkStation ws5 = new WorkStation().builder()
+				.description("WS1")
+				.maxOccupation(rndm.nextInt(5, 30))
+				.office(officeService.findById(rndm.nextLong(16, 24)))
+				.workStationType(WorkStationType.MEETING_ROOM).build();
+
+		workStationService.save(ws1);
+		workStationService.save(ws2);
+		workStationService.save(ws3);
+		workStationService.save(ws4);
+		workStationService.save(ws5);*/
+
+
+
+
+//		System.out.println("******* All offices *********");
+//		List<Office> allOffices = officeService.getAllOffices();
+//		allOffices.forEach(System.out::println);
+
+//		officeService.printAllOffices();
+//		officeService.printOfficesByCity("eugeniemouth");
+
 
 		// to handle
 		// try {

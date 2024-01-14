@@ -1,12 +1,12 @@
 package riccardogulin.u5d4.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import lombok.*;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.springframework.stereotype.Component;
 
 import java.util.Set;
+import java.util.StringJoiner;
 
 @Data
 @AllArgsConstructor
@@ -20,12 +20,17 @@ public class Office {
     private String address;
     private String city;
 
-    @OneToMany(mappedBy = "office", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "office", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<WorkStation> workStations;
 
     public Office(String name, String address, String city) {
         this.name = name;
         this.address = address;
         this.city = city;
+    }
+
+    @Override
+    public String toString() {
+        return "Office [id=" + id + ", name=" + name + ", address=" + address + ", city=" + city + "]";
     }
 }

@@ -8,6 +8,6 @@ import java.util.List;
 
 @Repository
 public interface OfficeDAO extends JpaRepository<Office, Long> {
-    List<Office> findByCity(String city);
+    List<Office> findByCityIgnoreCase(String city);
 
 }

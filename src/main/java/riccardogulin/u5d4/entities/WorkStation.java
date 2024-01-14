@@ -1,12 +1,22 @@
 package riccardogulin.u5d4.entities;
 
+import com.github.javafaker.Weather;
 import jakarta.persistence.*;
+import lombok.*;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringJoiner;
 
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@Builder
 public class WorkStation {
     @Id
     @GeneratedValue
@@ -30,4 +40,15 @@ public class WorkStation {
         this.office = office;
         this.occupiedDate = LocalDate.parse(occupiedDate);
     }
+
+    @Override
+    public String toString() {
+        return "WorkStation [id=" + id + ", " +
+                "description=" + description + ", " +
+                "type=" + workStationType +
+                ", maxOccupation=" + maxOccupation +
+                ", occupiedDate=" + occupiedDate + "]";
+    }
+
+
 }

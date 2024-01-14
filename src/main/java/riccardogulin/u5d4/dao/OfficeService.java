@@ -20,12 +20,25 @@ public class OfficeService {
         log.info("Office saved successfully!");
     }
 
+    public List<Office> getAllOffices() {
+        return officeDAO.findAll();
+    }
+    public void printAllOffices() {
+        System.out.println("******* All offices *********");
+        officeDAO.findAll().forEach(System.out::println);
+    }
+
+    public void printOfficesByCity(String city) {
+        System.out.println("******** Offices available in " + (city) + " **********");
+        officeDAO.findByCityIgnoreCase(city).forEach(System.out::println);
+    }
+
     public Office findById(Long id) throws ItemNotFoundException{
         return officeDAO.findById(id).orElseThrow(() -> new ItemNotFoundException(id));
     }
 
     public List<Office> findByCity(String city) {
-        List<Office> offices = officeDAO.findByCity(city);
+        List<Office> offices = officeDAO.findByCityIgnoreCase(city);
         offices.forEach(office -> office.getWorkStations().size());
         return offices;
     }
