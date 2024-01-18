@@ -107,11 +107,14 @@ public class UsersRunner implements CommandLineRunner {
 		// not available workstations by date
 		workStationService.notAvailableWorkStationsByDate(LocalDate.now());
 
+		// workstation by type
+		workStationService.WorkStationByType(WorkStationType.OPEN_SPACE);
+
 		// book workstation
 		usersService.findAll();
 
 		// book workstation
-		usersService.bookWorkStation(2, 2, LocalDate.parse("2022-03-08"));
+		usersService.bookWorkStation(2, 1, LocalDate.parse("2022-03-08"));
 
 	}
 }

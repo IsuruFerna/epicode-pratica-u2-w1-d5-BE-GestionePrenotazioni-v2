@@ -41,6 +41,11 @@ public class WorkStationService {
         workStationDAO.filterByDateWorkStaionOccupied(localDate).forEach(System.out::println);
     }
 
+    public void WorkStationByType(WorkStationType workStationType) {
+        System.out.println("**************** workstation type: " + workStationType + " *******************");
+        workStationDAO.findByWorkStationType(workStationType).forEach(System.out::println);
+    }
+
 //    public void availableWorkStationsByDate(LocalDate localDate) {
 //        System.out.println("******************* These are available in " + localDate + " ***************************");
 //        workStationDAO.filterByDateAvailableWorkStation(localDate).forEach(System.out::println);
