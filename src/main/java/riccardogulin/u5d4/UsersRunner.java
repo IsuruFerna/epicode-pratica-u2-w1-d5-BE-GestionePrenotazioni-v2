@@ -14,6 +14,7 @@ import riccardogulin.u5d4.entities.User;
 import riccardogulin.u5d4.entities.WorkStation;
 import riccardogulin.u5d4.entities.WorkStationType;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -31,10 +32,6 @@ public class UsersRunner implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-//		 AnnotationConfigApplicationContext ctx = new
-//		 AnnotationConfigApplicationContext(U5d4Application.class);
-//		 officeService.save(ctx.getBean("of1", Office.class));
-//		 System.out.println(ctx.getBean("of1", Office.class));
 
 		Faker faker = new Faker();
 		Random rndm = new Random();
@@ -83,103 +80,38 @@ public class UsersRunner implements CommandLineRunner {
 		workStationService.save(ws4);
 		workStationService.save(ws5);*/
 
+/*		User u1 = new User(faker.name().firstName(), faker.name().lastName(), faker.internet().emailAddress(), rndm.nextInt(18, 60));
+		User u2 = new User(faker.name().firstName(), faker.name().lastName(), faker.internet().emailAddress(), rndm.nextInt(18, 60));
+		User u3 = new User(faker.name().firstName(), faker.name().lastName(), faker.internet().emailAddress(), rndm.nextInt(18, 60));
+		User u4 = new User(faker.name().firstName(), faker.name().lastName(), faker.internet().emailAddress(), rndm.nextInt(18, 60));
+		User u5 = new User(faker.name().firstName(), faker.name().lastName(), faker.internet().emailAddress(), rndm.nextInt(18, 60));
+
+		usersService.saveUser(u1);
+		usersService.saveUser(u2);
+		usersService.saveUser(u3);
+		usersService.saveUser(u4);
+		usersService.saveUser(u5);*/
 
 
 
 //		System.out.println("******* All offices *********");
 //		List<Office> allOffices = officeService.getAllOffices();
 //		allOffices.forEach(System.out::println);
-
+//
 //		officeService.printAllOffices();
 //		officeService.printOfficesByCity("eugeniemouth");
 
+		// all available workstations
+		workStationService.availableWorkstations();
 
-		// to handle
-		// try {
-		// officeService.findByCity("North Alberthabury");
-		// } catch (LazyInitializationException ex) {
-		// System.err.println(ex.getMessage());
-		// }
+		// not available workstations by date
+		workStationService.notAvailableWorkStationsByDate(LocalDate.now());
 
-		try {
-			// Office of1Db = officeService.findById(1L);
-			// Office of2Db = officeService.findById(2L);
+		// book workstation
+		usersService.findAll();
 
-			// WorkStation ws1 = new WorkStation("descritption",
-			// WorkStationType.MEETING_ROOM, 20, of1Db);
-			// WorkStation ws2 = new WorkStation("descritption", WorkStationType.OPEN_SPACE,
-			// 10, of1Db);
-			// WorkStation ws3 = new WorkStation("descritption", WorkStationType.PRIVATE, 6,
-			// of2Db);
-			// workStationService.save(ws1);
-			// workStationService.save(ws2);
-			// workStationService.save(ws3);
-
-		} catch (Exception ex) {
-			System.err.println(ex.getMessage());
-		}
-
-		// Random rndm = new Random();
-		// System.out.println("-------------------- SAVE ----------------------");
-		// User user = new User(faker.name().firstName(), faker.name().lastName(),
-		// faker.internet().emailAddress(), rndm.nextInt(0, 100));
-		// usersService.saveUser(user);
-		//
-		// System.out.println("-------------------- FIND BY ID ----------------------");
-		// try {
-		// System.out.println(usersService.findById(1));
-		// System.out.println(usersService.findById(24));
-		// } catch (Exception ex) {
-		// System.err.println(ex.getMessage());
-		// }
-		//
-		//
-		// System.out.println("-------------------- FIND ALL ----------------------");
-		// usersService.findAll().forEach(System.out::println);
-		//
-		// System.out.println("-------------------- FIND BY ID AND DELETE
-		// ----------------------");
-		// try {
-		// usersService.findByIdAndDelete(52);
-		// } catch (Exception ex) {
-		// System.err.println(ex.getMessage());
-		// }
-		//
-		// System.out.println("-------------------- FIND BY ID AND UPDATE
-		// ----------------------");
-		// try {
-		// User updatedUser = new User("Giacomo", "Poretti", "giacomo@gmail.com", 88);
-		// //usersService.findByIdAndUpdate(2, updatedUser);
-		// } catch (Exception ex) {
-		// System.err.println(ex.getMessage());
-		// }
-		//
-		//
-		// System.out.println("-------------------- FIND BY SURNAME
-		// ----------------------");
-		// usersService.filterBySurname("Baglio").forEach(System.out::println);
-		//
-		// System.out.println("-------------------- FIND BY NAME AND SURNAME
-		// ----------------------");
-		// usersService.filterByNameAndSurname("Aldo",
-		// "Baglio").forEach(System.out::println);
-		//
-		// System.out.println("-------------------- FIND BY SURNAME STARTING WITH
-		// ----------------------");
-		// usersService.filterBySurnameStartingWith("B").forEach(System.out::println);
-		//
-		// System.out.println("-------------------- FIND BY LIST OF NAMES
-		// ----------------------");
-		//
-		// usersService.filterByListOfNames(List.of("Aldo",
-		// "Giovanni")).forEach(System.out::println);
-		//
-		// System.out.println("-------------------- FIND BY AGE
-		// ----------------------");
-		//
-		// usersService.filterByAgeLessThan(40).forEach(System.out::println);
-
-		// ctx.close();
+		// book workstation
+		usersService.bookWorkStation(2, 2, LocalDate.parse("2022-03-08"));
 
 	}
 }

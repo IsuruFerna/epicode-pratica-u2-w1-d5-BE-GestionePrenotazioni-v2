@@ -1,10 +1,7 @@
 package riccardogulin.u5d4.entities;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -25,7 +22,8 @@ public class User {
 	private String email;
 	private int age;
 
-	@ManyToMany(cascade = CascadeType.ALL)
+	@NonNull
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name = "user_workstation",
 			joinColumns = @JoinColumn(name = "user_id"),
 			inverseJoinColumns = @JoinColumn(name = "workstation_id"))
@@ -36,5 +34,9 @@ public class User {
 		this.surname = surname;
 		this.email = email;
 		this.age = age;
+	}
+
+	public void setWorkStations(WorkStation workStation) {
+		this.workStations.add(workStation);
 	}
 }

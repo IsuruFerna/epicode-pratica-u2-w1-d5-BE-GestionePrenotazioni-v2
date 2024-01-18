@@ -4,8 +4,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import riccardogulin.u5d4.entities.User;
+import riccardogulin.u5d4.entities.WorkStation;
 import riccardogulin.u5d4.exceptions.ItemNotFoundException;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service // Specializzazione di @Component
@@ -14,6 +16,9 @@ public class UsersService {
 
 	@Autowired
 	private UsersDAO usersDAO;
+
+	@Autowired
+	private WorkStationService workStationService;
 
 	public void saveUser(User user) {
 		// eventuale logica addizionale custom tipo aggiunta campi extra allo user, controlli vari
@@ -24,6 +29,30 @@ public class UsersService {
 		// un riferimento a UsersDAO?
 		usersDAO.save(user);
 		log.info("User salvato correttamente!");
+	}
+
+	public void bookWorkStation(long userId, long workstationId, LocalDate localDate) {
+		WorkStation workStation = workStationService.findById(workstationId);
+		if(workStation.getOccupiedDate() == null
+				|| workStation.getMaxOccupation() > usersDAO.countUsersInWorkStation(workstationId)
+				&& !usersDAO.checkIfTheUserIsAlreadyInWorkStation(workstationId, userId)) {
+			User user = this.findById(userId);
+			user.setWorkStations(workStation);
+			workStation.setOccupiedDate(localDate);
+			this.saveUser(user);
+			workStationService.save(workStation);
+			System.out.println("workstation: " + workStation.getId() + " booked by " + user.getName());
+		} else {
+			System.out.println("Work station already occupied!");
+		}
+	}
+
+	public int countUsersInWorkStation(long workStationId) {
+		return usersDAO.countUsersInWorkStation(workStationId);
+	}
+
+	public boolean checkIfTheUserIsAlreadyInWorkStation(long workstationId, long userId) {
+		return usersDAO.checkIfTheUserIsAlreadyInWorkStation(workstationId, userId);
 	}
 
 	public User findById(long id) throws ItemNotFoundException {
@@ -38,8 +67,8 @@ public class UsersService {
 		return usersDAO.findById(id).orElseThrow(() -> new ItemNotFoundException(id)); // Alternativa molto più compatta al codice di sopra
 	}
 
-	public List<User> findAll() {
-		return usersDAO.findAll();
+	public void findAll() {
+		 usersDAO.findAll().forEach(System.out::println);
 	}
 
 	public void findByIdAndDelete(long id) {

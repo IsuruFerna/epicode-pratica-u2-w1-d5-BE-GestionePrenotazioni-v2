@@ -2,6 +2,7 @@ package riccardogulin.u5d4.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import riccardogulin.u5d4.entities.User;
 
@@ -32,6 +33,12 @@ public interface UsersDAO extends JpaRepository<User, Long> {
 
 	@Query("SELECT u FROM User u WHERE u.age >= 18")
 	List<User> filterByMaggiorenni();
+
+	@Query("SELECT COUNT(u) FROM User u JOIN u.workStations w WHERE w.id = :workStationId")
+	int countUsersInWorkStation(@Param("workStationId") Long workStationId);
+
+	@Query("SELECT CASE WHEN COUNT(u) > 0 THEN true ELSE false END FROM User u JOIN u.workStations w WHERE w.id = :workStationId AND u.id = :userId")
+	boolean checkIfTheUserIsAlreadyInWorkStation(@Param("workStationId") long workStationId, @Param("userId") long userId);
 
 
 	// Link alla documentazione per le Derived Queries
